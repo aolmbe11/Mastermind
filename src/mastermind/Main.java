@@ -1,5 +1,6 @@
 package mastermind;
 
+import java.awt.Toolkit;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -51,6 +52,8 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         
+        setIcon();
+        
         ImageIcon imagenLogo = new ImageIcon(getClass().getResource("/mastermind/imagenes/logo.png"));
         etiquetaLogo.setIcon(imagenLogo);
         
@@ -64,6 +67,7 @@ public class Main extends javax.swing.JFrame {
         botonBola5.setEnabled(false);
         botonBola6.setEnabled(false);
 
+        // Mostrar instrucciones y adptar texto al TextArea.
         textAreaInstrucciones.setText(instrucciones);
         textAreaInstrucciones.setLineWrap(true);
         textAreaInstrucciones.setWrapStyleWord(true);
@@ -264,10 +268,10 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(botonBola5)
                     .addComponent(botonBola4)
                     .addComponent(botonBola6))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 650, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 650, 90));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
@@ -468,7 +472,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, -1, 380));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, -1, 380));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
@@ -746,9 +750,9 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -765,7 +769,7 @@ public class Main extends javax.swing.JFrame {
                 botonComprobarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonComprobar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 380, -1, -1));
+        getContentPane().add(botonComprobar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, -1, -1));
 
         botonNuevaPartida.setText("Nueva Partida");
         botonNuevaPartida.setPreferredSize(new java.awt.Dimension(105, 23));
@@ -777,13 +781,13 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(botonNuevaPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, -1, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Elige nivel", "Fácil", "Medio", "Difícil", "Experto" }));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(105, 20));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(105, 23));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 100, -1));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 110, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -796,7 +800,6 @@ public class Main extends javax.swing.JFrame {
 
         combinacionUsuario += BOLA_VERDE;
 
-        System.out.println(combinacionUsuario);
         switch (filaColumna) {
             // Primera fila  
             case 11:
@@ -966,7 +969,6 @@ public class Main extends javax.swing.JFrame {
         botonBola1.setEnabled(false);
 
         combinacionUsuario += BOLA_AMARILLA;
-        System.out.println(combinacionUsuario);
 
         switch (filaColumna) {
             // Primera Fila.    
@@ -1139,7 +1141,6 @@ public class Main extends javax.swing.JFrame {
         botonBola2.setEnabled(false);
 
         combinacionUsuario += BOLA_AZUL;
-        System.out.println(combinacionUsuario);
 
         switch (filaColumna) {
             // Primera Fila.
@@ -1308,7 +1309,6 @@ public class Main extends javax.swing.JFrame {
         botonBola3.setEnabled(false);
 
         combinacionUsuario += BOLA_ROJA;
-        System.out.println(combinacionUsuario);
 
         switch (filaColumna) {
             // Primera Fila.
@@ -1477,7 +1477,6 @@ public class Main extends javax.swing.JFrame {
         botonBola4.setEnabled(false);
 
         combinacionUsuario += BOLA_TURQUESA;
-        System.out.println(combinacionUsuario);
 
         switch (filaColumna) {
             // Primera Fila.
@@ -1646,7 +1645,6 @@ public class Main extends javax.swing.JFrame {
         botonBola5.setEnabled(false);
 
         combinacionUsuario += BOLA_MARRON;
-        System.out.println(combinacionUsuario);
 
         switch (filaColumna) {
             // Primera Fila.
@@ -1814,7 +1812,6 @@ public class Main extends javax.swing.JFrame {
         botonBola6.setEnabled(false);
 
         combinacionUsuario += BOLA_MORADA;
-        System.out.println(combinacionUsuario);
 
         switch (filaColumna) {
             // Primera Fila.
@@ -2011,7 +2008,6 @@ public class Main extends javax.swing.JFrame {
         }
         botonComprobar.setEnabled(false);
 
-        System.out.println(" max fila " + fila);
         if (fila >= 8) {
             botonBola0.setEnabled(false);
             botonBola1.setEnabled(false);
@@ -2061,7 +2057,6 @@ public class Main extends javax.swing.JFrame {
             }
             coincidentes += coincidente;
         }
-        System.out.println("Coincidentes: " + coincidentes);
 
         if (combinacionUsuario.equals(combinacionInicial)) {
             botonBola0.setEnabled(false);
@@ -2090,7 +2085,6 @@ public class Main extends javax.swing.JFrame {
                     filaColumnaResultado += i;
                 }
                 filaColumnaResultado++;
-                System.out.println("Comprobar  " + " ," + i + " ," + filaColumnaResultado);
 
                 switch (filaColumnaResultado) {
                     // Primera fila  
@@ -2120,7 +2114,6 @@ public class Main extends javax.swing.JFrame {
                                 }
                             }
                         }
-                        System.out.println("Comprobar 1_2 " + filaColumnaResultado);
 
                         //
                         break;
@@ -2136,9 +2129,7 @@ public class Main extends javax.swing.JFrame {
                                 }
                             }
                         }
-                        System.out.println("Comprobar 1_3 " + filaColumnaResultado);
-
-                        //
+                      
                         break;
                     case 14:
                         if (coincidentes.charAt(3) == '9') {
@@ -2196,8 +2187,6 @@ public class Main extends javax.swing.JFrame {
                                 }
                             }
                         }
-                        System.out.println("Comprobar 2_3 " + filaColumnaResultado);
-
                         //
                         break;
                     case 24:
@@ -2881,5 +2870,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextArea textAreaInstrucciones;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/mastermind/imagenes/icono.png")));
+    }
 
 }
