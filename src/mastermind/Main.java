@@ -81,6 +81,7 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        textAreaInstrucciones = new javax.swing.JTextArea();
         etiquetaLogo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         botonBola2 = new javax.swing.JButton();
@@ -167,12 +168,16 @@ public class Main extends javax.swing.JFrame {
         botonComprobar = new javax.swing.JButton();
         botonNuevaPartida = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox();
-        textAreaInstrucciones = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(151, 158, 175));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        textAreaInstrucciones.setColumns(20);
+        textAreaInstrucciones.setRows(5);
+        textAreaInstrucciones.setOpaque(false);
+        getContentPane().add(textAreaInstrucciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 420, 540));
         getContentPane().add(etiquetaLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 420, 140));
 
         jPanel1.setBackground(new java.awt.Color(150, 155, 162));
@@ -779,11 +784,6 @@ public class Main extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 100, -1));
-
-        textAreaInstrucciones.setColumns(20);
-        textAreaInstrucciones.setRows(5);
-        textAreaInstrucciones.setOpaque(false);
-        getContentPane().add(textAreaInstrucciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 420, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
