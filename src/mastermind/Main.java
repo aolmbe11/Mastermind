@@ -43,20 +43,22 @@ public class Main extends javax.swing.JFrame {
             + "1. Debe elegir un nivel de dificultad, que dependerá de"
             + " la cantidad de colores a acertar (4,5,6 o 7).\n\n 2. Tras elegir una "
             + "combinación de 4 colores, pulsar Comproba Fila.\n\n 3. En el panel derecho,"
-            + " aparecerá al comprobar cada fila, una bola blanca si el color elegido existe en la combinación"
-            + " ganadora y está en la posición correcta.\n\nUna bola negra si no está en la "
-            + "posición correcta, pero existe en la combinación ganadora.\n\nO bien, una bola "
-            + "gris si el color no existe en la combinación ganadora.\n\n 4. Puede"
+            + " aparecerá, al comprobar cada fila, una bola blanca si hay algún color de los elegidos"
+            + " que exista en la combinación ganadora y está en la posición correcta.\n\nUna bola "
+            + "negra si no está en la posición correcta, pero existe en la combinación ganadora."
+            + "\n\nO bien, una bola gris si el color no existe en la combinación ganadora.\n\n 4. Puede"
             + " reiniciar la partida, en cualquier momento, pulsando Nueva Partida.";
 
     public Main() {
         initComponents();
         
-        setIcon();
+        setLocationRelativeTo(null);
+        setIcono();
         
         ImageIcon imagenLogo = new ImageIcon(getClass().getResource("/mastermind/imagenes/logo.png"));
         etiquetaLogo.setIcon(imagenLogo);
         
+        botonLeyenda.setEnabled(false);
         botonComprobar.setEnabled(false);
         jComboBox1.setEnabled(false);
         botonBola0.setEnabled(false);
@@ -172,6 +174,7 @@ public class Main extends javax.swing.JFrame {
         botonComprobar = new javax.swing.JButton();
         botonNuevaPartida = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox();
+        botonLeyenda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(151, 158, 175));
@@ -181,7 +184,7 @@ public class Main extends javax.swing.JFrame {
         textAreaInstrucciones.setColumns(20);
         textAreaInstrucciones.setRows(5);
         textAreaInstrucciones.setOpaque(false);
-        getContentPane().add(textAreaInstrucciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 420, 540));
+        getContentPane().add(textAreaInstrucciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 390, 540));
         getContentPane().add(etiquetaLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 420, 140));
 
         jPanel1.setBackground(new java.awt.Color(150, 155, 162));
@@ -788,6 +791,14 @@ public class Main extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 110, -1));
+
+        botonLeyenda.setText("Leyenda");
+        botonLeyenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonLeyendaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonLeyenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1466,6 +1477,7 @@ public class Main extends javax.swing.JFrame {
             botonBola3.setEnabled(false);
             botonBola4.setEnabled(false);
             botonBola5.setEnabled(false);
+            botonBola6.setEnabled(false);
             botonComprobar.setEnabled(true);
         }
     }//GEN-LAST:event_botonBola3ActionPerformed
@@ -2057,6 +2069,9 @@ public class Main extends javax.swing.JFrame {
             }
             coincidentes += coincidente;
         }
+        System.out.println("Coincidentes ordenado " + coincidentes);
+        coincidentes = this.burbuja(coincidentes);
+        System.out.println("Coincidentes desordenado " + coincidentes);
 
         if (combinacionUsuario.equals(combinacionInicial)) {
             botonBola0.setEnabled(false);
@@ -2087,6 +2102,7 @@ public class Main extends javax.swing.JFrame {
                 filaColumnaResultado++;
 
                 switch (filaColumnaResultado) {
+                    
                     // Primera fila  
                     case 11:
                         if (coincidentes.charAt(0) == '9') {
@@ -2641,6 +2657,7 @@ public class Main extends javax.swing.JFrame {
         botonBola5.setEnabled(false);
         botonBola6.setEnabled(false);
 
+        botonLeyenda.setEnabled(true);
         jComboBox1.setEnabled(true);
         textAreaInstrucciones.setText("");
         textAreaInstrucciones.setVisible(false);
@@ -2746,6 +2763,11 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void botonLeyendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLeyendaActionPerformed
+        ImageIcon imagenLeyenda = new ImageIcon(getClass().getResource("/mastermind/imagenes/leyenda.png"));
+        JOptionPane.showMessageDialog(this, null, "Leyenda", JOptionPane.PLAIN_MESSAGE, imagenLeyenda);
+    }//GEN-LAST:event_botonLeyendaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2822,6 +2844,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton botonBola5;
     private javax.swing.JButton botonBola6;
     private javax.swing.JButton botonComprobar;
+    private javax.swing.JButton botonLeyenda;
     private javax.swing.JButton botonNuevaPartida;
     private javax.swing.JLabel etiquetaAcierto1_1;
     private javax.swing.JLabel etiquetaAcierto1_2;
@@ -2871,8 +2894,31 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextArea textAreaInstrucciones;
     // End of variables declaration//GEN-END:variables
 
-    private void setIcon() {
+    private void setIcono() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/mastermind/imagenes/icono.png")));
+    }
+    
+    public String burbuja(String a){
+         int i, j, aux;
+         for(i=0;i<a.length()-1;i++)
+              for(j=0;j<a.length()-i-1;j++)
+                   if(a.charAt(j+1)<a.charAt(j)){
+                      aux=a.charAt(j+1);
+                      a = replaceChar(a, j+1, a.charAt(j));
+                      a = replaceChar(a, j, (char)aux);
+                   }
+         return a;
+}
+    
+    public String replaceChar(String string, int pos, char newChar) {
+        String aux = "";
+        aux = string.substring(0, pos);
+        aux += (char)newChar;
+        try {
+            aux += string.substring(pos+1);
+        } catch(Exception ex) {        
+        }
+        return aux;
     }
 
 }
