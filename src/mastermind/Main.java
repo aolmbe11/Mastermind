@@ -41,23 +41,39 @@ public class Main extends javax.swing.JFrame {
 
     String instrucciones = "\n  Instrucciones \n============\n\n"
             + "1. Debe elegir un nivel de dificultad, que dependerá de"
-            + " la cantidad de colores a acertar (4,5,6 o 7).\n\n 2. Tras elegir una "
-            + "combinación de 4 colores, pulsar Comproba Fila.\n\n 3. En el panel derecho,"
-            + " aparecerá, al comprobar cada fila, una bola blanca si hay algún color de los elegidos"
-            + " que exista en la combinación ganadora y está en la posición correcta.\n\nUna bola "
+            + " la cantidad de colores a acertar (4,5,6 o 7).\n\n * Niveles Fácil y Medio:\n"
+            + "Los fallos o aciertos se mostrarán en el panel derecho, en el mismo orden de la combinación."
+            + "\n\nAparecerá, al comprobar cada fila, una bola blanca si el color elegido es el correcto, "
+            + "una bola negra si no es su lugar adecuado o una bola gris si el color no es correcto."
+            + "\n\n * Niveles Difícil y Experto:\nLos resultados se mostrarán desordenados.\n\n"
+            + "Aparecerá, al comprobar cada fila, una bola blanca si hay algún color de los elegidos "
+            + "que exista en la combinación ganadora y está en la posición correcta.\n\nUna bola "
             + "negra si no está en la posición correcta, pero existe en la combinación ganadora."
-            + "\n\nO bien, una bola gris si el color no existe en la combinación ganadora.\n\n 4. Puede"
-            + " reiniciar la partida, en cualquier momento, pulsando Nueva Partida.";
+            + "\n\nO bien, una bola gris si el color no existe en la combinación ganadora."
+            + "\n\n2. Tras elegir una combinación de 4 colores, pulsar Comproba Fila.\n\n3. Puede"
+            + "reiniciar la partida, en cualquier momento, pulsando Nueva Partida.";
+
+    String creditos = "\n  Créditos \n============\n\n"
+            + "- Desarrollador:\n\n Ángel Olmedo Benítez.\n\n"
+            + "- Imágenes bolas:\n\n www.openclipart.com - uploader: esiscd2000.\n\n"
+            + "- Imagen you win:\n\n www.bostondigital.com.au.\n\n"
+            + "- Imagen game over:\n\n www.gopixpic.com.\n\n"
+            + "- Sonido you win:\n\n Mike Koenig.\n\n"
+            + "- Sonido you lose:\n\n Joe Lamb.";
 
     public Main() {
         initComponents();
-        
+
+        // Centrar ventana en la pantalla.
         setLocationRelativeTo(null);
-        setIcono();
         
+        // Método que cambia el icono.
+        setIcono();
+
         ImageIcon imagenLogo = new ImageIcon(getClass().getResource("/mastermind/imagenes/logo.png"));
         etiquetaLogo.setIcon(imagenLogo);
-        
+
+        // Desabilitar botones al iniciar la pantalla.
         botonLeyenda.setEnabled(false);
         botonComprobar.setEnabled(false);
         jComboBox1.setEnabled(false);
@@ -184,7 +200,7 @@ public class Main extends javax.swing.JFrame {
         textAreaInstrucciones.setColumns(20);
         textAreaInstrucciones.setRows(5);
         textAreaInstrucciones.setOpaque(false);
-        getContentPane().add(textAreaInstrucciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 390, 540));
+        getContentPane().add(textAreaInstrucciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 400, 550));
         getContentPane().add(etiquetaLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 420, 140));
 
         jPanel1.setBackground(new java.awt.Color(150, 155, 162));
@@ -810,6 +826,10 @@ public class Main extends javax.swing.JFrame {
         botonBola0.setEnabled(false);
 
         combinacionUsuario += BOLA_VERDE;
+        
+        // En cada uno de los botones, se incrementa la columna, para mostrar la 
+        //imagen de la bola adecuada en la etiqueta adecuada.
+        // La fila se incrementa al comprobar cada fila.
 
         switch (filaColumna) {
             // Primera fila  
@@ -957,6 +977,8 @@ public class Main extends javax.swing.JFrame {
                 break;
         }
 
+        // Convertir fila y columna a String, para comprobar que el segundo caracter
+        // sea 5.
         posicionColumna = String.valueOf(filaColumna);
         numColumna = posicionColumna.charAt(1);
 
@@ -1986,6 +2008,8 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_botonBola6ActionPerformed
 
     private void botonComprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonComprobarActionPerformed
+        
+        // Activar botones dependiendo del nivel.
         switch (nivel) {
             case 1:
                 botonBola0.setEnabled(true);
@@ -2020,6 +2044,7 @@ public class Main extends javax.swing.JFrame {
         }
         botonComprobar.setEnabled(false);
 
+        // Controlar la derrota del usuario.
         if (fila >= 8) {
             botonBola0.setEnabled(false);
             botonBola1.setEnabled(false);
@@ -2034,7 +2059,7 @@ public class Main extends javax.swing.JFrame {
 
             } else {
                 try {
-                    Player player = new Player(getClass().getResourceAsStream("/mastermind/sonidos/gameoversoundeffect.mp3"));
+                    Player player = new Player(getClass().getResourceAsStream("/mastermind/sonidos/Sad_Trombone-Joe_Lamb-665429450.mp3"));
                     player.play();
                     player.close();
                 } catch (Exception e) {
@@ -2044,16 +2069,19 @@ public class Main extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Lo siento, ha perdido. ¡¡¡ Intentelo de nuevo !!!", "Game Over", JOptionPane.PLAIN_MESSAGE, imagenGameOver);
 
             }
+            botonLeyenda.setEnabled(false);
+            textAreaInstrucciones.setText(creditos);
+            textAreaInstrucciones.setVisible(true);
         }
 
-        // Comparar combinacion usuario con combinacion inicial.
+        
         System.out.println("la combinacion del usuario es " + combinacionUsuario + " combinacion ganadora: " + combinacionInicial);
 
         ImageIcon imagenBolaBlanca = new ImageIcon(getClass().getResource("/mastermind/imagenes/bolaBlanca.png"));
         ImageIcon imagenBolaNegra = new ImageIcon(getClass().getResource("/mastermind/imagenes/bolaNegra.png"));
 
         String coincidentes = "";
-
+        // Comparar combinacion usuario con combinacion inicial.    
         for (int i = 0; i < combinacionUsuario.length(); i++) {
             boolean esCoincidente = false;
             String coincidente = String.valueOf(BOLA_GRIS);
@@ -2065,14 +2093,23 @@ public class Main extends javax.swing.JFrame {
                     } else {
                         coincidente = String.valueOf(BOLA_NEGRA);
                     }
-                } 
+                }
             }
             coincidentes += coincidente;
         }
-        System.out.println("Coincidentes ordenado " + coincidentes);
-        coincidentes = this.burbuja(coincidentes);
-        System.out.println("Coincidentes desordenado " + coincidentes);
-
+        // Generar resultados ordenador o desordenados dependiendo del nivel.
+        System.out.println("coincidentes " + coincidentes);
+        if (nivel == 1 || nivel == 2) {
+            System.out.println("Coincidentes ordenado " + coincidentes);
+        } else {
+            if (nivel == 3 || nivel == 4) {
+                coincidentes = this.burbuja(coincidentes);
+                System.out.println("Coincidentes desordenado " + coincidentes);
+            }
+        }
+        System.out.println("coincidentes 2 " + coincidentes);
+        
+        // Controlar la victoria del usuario.
         if (combinacionUsuario.equals(combinacionInicial)) {
             botonBola0.setEnabled(false);
             botonBola1.setEnabled(false);
@@ -2092,7 +2129,11 @@ public class Main extends javax.swing.JFrame {
             }
             ImageIcon imagenGameOver = new ImageIcon(getClass().getResource("/mastermind/imagenes/you-win.png"));
             JOptionPane.showMessageDialog(this, "Enhorabuena, ha ganado !!!", "¡¡ Usted Gana !!", JOptionPane.PLAIN_MESSAGE, imagenGameOver);
+            botonLeyenda.setEnabled(false);
+            textAreaInstrucciones.setText(creditos);
+            textAreaInstrucciones.setVisible(true);
         } else {
+            // Bucle para generar panel de resultados.
             for (int i = 0; i < LONGITUD_PASSWORD; i++) {
 
                 if (fila != 1) {
@@ -2102,7 +2143,7 @@ public class Main extends javax.swing.JFrame {
                 filaColumnaResultado++;
 
                 switch (filaColumnaResultado) {
-                    
+
                     // Primera fila  
                     case 11:
                         if (coincidentes.charAt(0) == '9') {
@@ -2145,7 +2186,7 @@ public class Main extends javax.swing.JFrame {
                                 }
                             }
                         }
-                      
+
                         break;
                     case 14:
                         if (coincidentes.charAt(3) == '9') {
@@ -2583,6 +2624,8 @@ public class Main extends javax.swing.JFrame {
     private void botonNuevaPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaPartidaActionPerformed
         ImageIcon imagenBolaGris = new ImageIcon(getClass().getResource("/mastermind/imagenes/bolaGris.png"));
         ImageIcon imagenBolitaGris = new ImageIcon(getClass().getResource("/mastermind/imagenes/bolitaGris.png"));
+        
+        // Resetear pantalla
         bolaGris1_1.setIcon(imagenBolaGris);
         bolaGris1_2.setIcon(imagenBolaGris);
         bolaGris1_3.setIcon(imagenBolaGris);
@@ -2658,6 +2701,8 @@ public class Main extends javax.swing.JFrame {
         botonBola6.setEnabled(false);
 
         botonLeyenda.setEnabled(true);
+        // Volver a colocar el comboBox en 0.
+        jComboBox1.setSelectedIndex(0);
         jComboBox1.setEnabled(true);
         textAreaInstrucciones.setText("");
         textAreaInstrucciones.setVisible(false);
@@ -2677,7 +2722,7 @@ public class Main extends javax.swing.JFrame {
         nivel = (byte) jComboBox1.getSelectedIndex();
         jComboBox1.setEnabled(false);
         //botonComprobar.setEnabled(true);
-
+        //Generar contraseña dependiendo del nivel y activar botones correspondientes.
         switch (nivel) {
             case 0:
                 botonBola0.setEnabled(false);
@@ -2764,7 +2809,8 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void botonLeyendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLeyendaActionPerformed
-        ImageIcon imagenLeyenda = new ImageIcon(getClass().getResource("/mastermind/imagenes/leyenda.png"));
+        ImageIcon imagenLeyenda = new ImageIcon(getClass().getResource("/mastermind/imagenes/leyenda1.png"));
+        // MOstrar leyenda.
         JOptionPane.showMessageDialog(this, null, "Leyenda", JOptionPane.PLAIN_MESSAGE, imagenLeyenda);
     }//GEN-LAST:event_botonLeyendaActionPerformed
 
@@ -2894,29 +2940,33 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextArea textAreaInstrucciones;
     // End of variables declaration//GEN-END:variables
 
+    // Método para cambiar el icono del programa.
     private void setIcono() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/mastermind/imagenes/icono.png")));
     }
-    
-    public String burbuja(String a){
-         int i, j, aux;
-         for(i=0;i<a.length()-1;i++)
-              for(j=0;j<a.length()-i-1;j++)
-                   if(a.charAt(j+1)<a.charAt(j)){
-                      aux=a.charAt(j+1);
-                      a = replaceChar(a, j+1, a.charAt(j));
-                      a = replaceChar(a, j, (char)aux);
-                   }
-         return a;
-}
-    
+
+    // Método para reordenar el String para mostrar los resultados.
+    public String burbuja(String a) {
+        int i, j, aux;
+        for (i = 0; i < a.length() - 1; i++) {
+            for (j = 0; j < a.length() - i - 1; j++) {
+                if (a.charAt(j + 1) < a.charAt(j)) {
+                    aux = a.charAt(j + 1);
+                    a = replaceChar(a, j + 1, a.charAt(j));
+                    a = replaceChar(a, j, (char) aux);
+                }
+            }
+        }
+        return a;
+    }
+    // Método para reemplazar el caracter correspondiente.
     public String replaceChar(String string, int pos, char newChar) {
         String aux = "";
         aux = string.substring(0, pos);
-        aux += (char)newChar;
+        aux += (char) newChar;
         try {
-            aux += string.substring(pos+1);
-        } catch(Exception ex) {        
+            aux += string.substring(pos + 1);
+        } catch (Exception ex) {
         }
         return aux;
     }
